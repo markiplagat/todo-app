@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
+import AddTodo from "./components/AddTodo";
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -17,10 +18,22 @@ export default function App() {
     })
   };
 
+  const addTodoHandler = (text) => {
+    setTodos((prevTodos) => {
+      return[
+        { text: text,
+          key: Math.random().toString()
+        },
+          ...prevTodos
+      ]
+    })
+  }
+
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.content}>
+        <AddTodo addTodoHandler={addTodoHandler} />
         <View style={styles.list}>
           <FlatList
               data={todos}
